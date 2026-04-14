@@ -58,15 +58,15 @@ class DefaultFirebaseOptions {
     storageBucket: 'traccar-manager-app.appspot.com',
   );
 
+  /// Muss zu [ios/Runner/GoogleService-Info.plist] und zum Xcode
+  /// `PRODUCT_BUNDLE_IDENTIFIER` passen (Zeichen für Zeichen).
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCa-dBF6DlD3CtKODjgrpoUjEwESsMttj8',
-    appId: '1:847296525014:ios:a9ee9ddfdb62f027',
-    messagingSenderId: '847296525014',
-    projectId: 'traccar-manager-app',
-    databaseURL: 'https://traccar-manager-app.firebaseio.com',
-    storageBucket: 'traccar-manager-app.appspot.com',
-    iosClientId: '847296525014-8d6vg8a08lfk1mp8j6mbgv96gq3n7cob.apps.googleusercontent.com',
-    iosBundleId: 'de.ednt.atlasmanager',
+    apiKey: 'AIzaSyDL0ACjoJdABA43soyUuxvdLLTYYFpwg1E',
+    appId: '1:1029051718031:ios:7c760777d703a01ec753fa',
+    messagingSenderId: '1029051718031',
+    projectId: 'traccar-41a32',
+    storageBucket: 'traccar-41a32.firebasestorage.app',
+    iosBundleId: 'de.ednt.AtlasManager',
   );
 
 }
