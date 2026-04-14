@@ -15,9 +15,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_android/shared_preferences_android.dart';
-import 'package:traccar_manager/error_screen.dart';
-import 'package:traccar_manager/main.dart';
-import 'package:traccar_manager/token_store.dart';
+import 'package:atlas_manager/error_screen.dart';
+import 'package:atlas_manager/main.dart';
+import 'package:atlas_manager/token_store.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainScreen extends StatefulWidget {
@@ -29,6 +29,8 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   static const _urlKey = 'url';
+  static const _appRedirectScheme = 'de.ednt.atlasmanager';
+  static const _defaultServerUrl = 'https://my.atlas-gps-tracking.com';
 
   final _initialized = Completer<void>();
   final _authenticated = Completer<void>();
@@ -56,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
     await _initialized.future;
     _appLinks = AppLinks();
     _appLinksSubscription = _appLinks.uriLinkStream.listen((uri) {
-      if (uri.scheme == 'org.traccar.manager') {
+      if (uri.scheme == _appRedirectScheme) {
         final baseUri = Uri.parse(_getUrl());
         final appPathSegments = [uri.host, ...uri.pathSegments];
         final updatedQueryParameters = Map<String, String>.from(uri.queryParameters)
@@ -80,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
       final originalRedirect = Uri.parse(uri.queryParameters['redirect_uri']!);
       final redirectSegments = originalRedirect.pathSegments;
       final updatedRedirect = Uri(
-        scheme: 'org.traccar.manager',
+        scheme: _appRedirectScheme,
         host: redirectSegments.first,
         path: '/${redirectSegments.skip(1).join('/')}',
         queryParameters: originalRedirect.queryParameters.isEmpty ? null : originalRedirect.queryParameters,
@@ -100,7 +102,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   String _getUrl() {
-    final url = _preferences.getString(_urlKey) ?? 'https://demo.traccar.org';
+    final url = _preferences.getString(_urlKey) ?? _defaultServerUrl;
     return url.endsWith('/') ? url.substring(0, url.length - 1) : url;
   }
 
@@ -289,6 +291,18 @@ class _MainScreenState extends State<MainScreen> {
             initialUserScripts: UnmodifiableListView<UserScript>([
               UserScript(
                 source: '''
+                  (function() {
+                    try {
+                      var key = 'loginEmail';
+                      var raw = window.localStorage.getItem(key);
+                      if (raw != null) {
+                        var v = JSON.parse(raw);
+                        if (typeof v === 'string' && v.toLowerCase() === 'info@google.com') {
+                          window.localStorage.removeItem(key);
+                        }
+                      }
+                    } catch (e) {}
+                  })();
                   window.appInterface = {
                     postMessage: function(message) {
                       if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {

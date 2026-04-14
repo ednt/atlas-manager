@@ -62,13 +62,19 @@ Future<void> _updateTitle(String name) async {
 Future<void> _updatePackageId(String id) async {
   await _replaceInFile(
     'android/app/build.gradle.kts',
+    RegExp(r'namespace = ".*?"'),
+    'namespace = "$id"',
+  );
+
+  await _replaceInFile(
+    'android/app/build.gradle.kts',
     RegExp(r'applicationId = ".*?"'),
     'applicationId = "$id"',
   );
 
   await _replaceInFile(
     'ios/Runner.xcodeproj/project.pbxproj',
-    RegExp(r'PRODUCT_BUNDLE_IDENTIFIER = org\.traccar.*?;'),
+    RegExp(r'PRODUCT_BUNDLE_IDENTIFIER = (?:org\.traccar[^;]+|de\.ednt\.atlasmanager);'),
     'PRODUCT_BUNDLE_IDENTIFIER = $id;',
   );
 }
@@ -84,8 +90,8 @@ Future<void> _updateVersion(String version) async {
 Future<void> _updateUrl(String url) async {
   await _replaceInFile(
     'lib/main_screen.dart',
-    RegExp(r'https://demo\.traccar\.org'),
-    url,
+    RegExp(r"static const _defaultServerUrl = '[^']*'"),
+    "static const _defaultServerUrl = '$url'",
   );
 }
 

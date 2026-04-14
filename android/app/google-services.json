@@ -1,35 +1,45 @@
 {
   "project_info": {
-    "project_number": "847296525014",
-    "firebase_url": "https://traccar-manager-app.firebaseio.com",
-    "project_id": "traccar-manager-app",
-    "storage_bucket": "traccar-manager-app.appspot.com"
+    "project_number": "1029051718031",
+    "project_id": "traccar-41a32",
+    "storage_bucket": "traccar-41a32.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:847296525014:android:ddfd572332cea794",
+        "mobilesdk_app_id": "1:1029051718031:android:5a4e1ff455d175f3c753fa",
         "android_client_info": {
-          "package_name": "org.traccar.manager"
+          "package_name": "de.ednt.atlasclient"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAAg2esrXqGG-_6TkPvpIfc3RlC2xFOysA"
+          "current_key": "AIzaSyDs-A-6EnZSGt8kPmtD69-XsnHnycGag0I"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "847296525014-8d6vg8a08lfk1mp8j6mbgv96gq3n7cob.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "org.traccar.TraccarManager"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029051718031:android:0335b39af41cc6b7c753fa",
+        "android_client_info": {
+          "package_name": "de.ednt.atlasmanager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs-A-6EnZSGt8kPmtD69-XsnHnycGag0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }
